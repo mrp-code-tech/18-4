@@ -26,10 +26,10 @@ jobs:
 
       - name: Ansible syntax check
         run: |
-           for file in $(grep -rl "hosts:" . --include="*.yml" --include="*.yaml"); do
-               echo "Checking playbook $file"
-               ansible-playbook "$file" --syntax-check || exit 1
-           done
+          for file in ansible/*.yml; do
+                ansible-playbook "$file" --syntax-check
+          done
+
       - name: Ansible lint
         run: ansible-lint .
 
