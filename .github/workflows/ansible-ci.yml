@@ -25,8 +25,11 @@ jobs:
         run: yamllint .
 
       - name: Ansible syntax check
-        run: ansible-playbook nginx.yml --syntax-check
-
+        run: |
+           for file in $(grep -rl "hosts:" . --include="*.yml" --include="*.yaml"); do
+               echo "Checking playbook $file"
+               ansible-playbook "$file" --syntax-check || exit 1
+           done
       - name: Ansible lint
         run: ansible-lint .
 
