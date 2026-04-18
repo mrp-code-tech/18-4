@@ -2,7 +2,12 @@ name: Ansible CI
 
 on:
   push:
+    branches:
+      - "branch-*"
+      - "feature/*"
   pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
