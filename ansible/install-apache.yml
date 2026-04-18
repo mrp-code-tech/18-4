@@ -1,0 +1,16 @@
+---
+- name: Install and start Apache web server
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Apache
+      package:
+        name: apache2   # use "httpd" for CentOS/RHEL
+        state: present
+
+    - name: Start Apache service
+      service:
+        name: apache2   # use "httpd" for CentOS/RHEL
+        state: started
+        enabled: yes
