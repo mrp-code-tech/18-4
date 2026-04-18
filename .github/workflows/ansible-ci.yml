@@ -4,6 +4,9 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -25,7 +28,10 @@ jobs:
         run: yamllint .
 
       - name: Ansible syntax check
-        run: ansible-playbook nginx.yml --syntax-check
+        run: |
+          for file in ansible/*.yml; do
+                ansible-playbook "$file" --syntax-check
+          done
 
       - name: Ansible lint
         run: ansible-lint .
